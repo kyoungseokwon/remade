@@ -1,0 +1,6 @@
+{
+  "name": "remaid-client",
+  "scripts": {
+    "start": "react-scripts start"
+  }
+}
