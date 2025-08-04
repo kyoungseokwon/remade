@@ -4,7 +4,6 @@ const app = express();
 const port = process.env.PORT || 10000;
 
 const API_KEY = process.env.SOLAPI_API_KEY;
-const API_SECRET = process.env.SOLAPI_API_SECRET;
 const FROM = process.env.FROM_PHONE;
 
 app.use(express.json());
@@ -21,7 +20,7 @@ app.post('/send', async (req, res) => {
       method: 'POST',
       url: 'https://api.solapi.com/messages/v4/send',
       headers: {
-        Authorization: `Basic ${Buffer.from(`${API_KEY}:${API_SECRET}`).toString('base64')}`,
+        Authorization: `Bearer ${API_KEY}`,
         'Content-Type': 'application/json'
       },
       data: {
