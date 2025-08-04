@@ -3,14 +3,12 @@ const axios = require('axios');
 const app = express();
 const port = process.env.PORT || 10000;
 
-// 환경변수 (Render에서 설정)
 const API_KEY = process.env.SOLAPI_API_KEY;
 const API_SECRET = process.env.SOLAPI_API_SECRET;
 const FROM = process.env.FROM_PHONE;
 
 app.use(express.json());
 
-// 문자 전송 API
 app.post('/send', async (req, res) => {
   const { to, text } = req.body;
 
@@ -23,7 +21,7 @@ app.post('/send', async (req, res) => {
       method: 'POST',
       url: 'https://api.solapi.com/messages/v4/send',
       headers: {
-        Authorization: `HMAC ${API_KEY}:${API_SECRET}`,  // ← 여기 수정됨!
+        Authorization: `Basic ${Buffer.from(`${API_KEY}:${API_SECRET}`).toString('base64')}`,
         'Content-Type': 'application/json'
       },
       data: {
